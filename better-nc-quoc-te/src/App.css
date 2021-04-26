@@ -1,0 +1,291 @@
+@font-face{
+  font-family: 'Schotis-bold';
+  src: url(./fonts/Schotis\ Bold.otf);
+  font-weight: bold;
+}
+
+@font-face{
+  font-family: 'Schotis';
+  src: url(./fonts/Schotis\ Book.otf);
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "Lora";
+  src: url(./fonts/Lora-Italic-VariableFont_wght.ttf);
+}
+
+
+/*------Themes-------*/
+
+.dark {
+  background-color: #181818;
+  color: white;
+  opacity: 0.8;
+}
+
+.light {
+  background-color: #FCF7F4;
+  color: #181818;
+  opacity: 0.9;
+}
+
+/*------Basics-------*/
+
+html {
+  font-size: 16px;
+  background-color: #181818;
+  color: white;
+}
+
+h1 {
+  font-size: 1.4rem;
+  opacity: 0.8;
+  font-family: "Schotis-bold";
+  line-height: clamp(1rem, 1.5rem, 4rem);
+}
+
+h2 {
+  font-size: clamp(1.5rem, 2rem, 2.5rem);
+  opacity: 0.9;
+  font-family: "Lora";
+  line-height: clamp(2rem, 2.5rem, 4rem);
+  font-weight: 100;
+  margin-top: 0;
+}
+
+p {
+  font-family: 'Schotis';
+  font-size: clamp(16px, 2vw + 6px, 18px);
+  line-height: calc(clamp(16px, 2vw + 6px, 18px) * 1.5);
+  opacity: 0.8;
+  font-weight: 300;
+}
+
+a {
+  opacity: 0.7;
+  font-size: clamp(0.7rem, 0.8rem, 0.9rem);
+  color: white;
+  text-decoration: none;
+}
+
+
+
+/*-----------Post-------------------*/
+
+.posts-container {
+  padding: 0;
+  margin: 0 30vw 0 30vw;
+}
+
+.date {
+  opacity: 0.5;
+  font-size: 0.8rem;
+  position: relative;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+
+
+.article {
+  animation: blur 1300ms ;
+  animation-delay: 0.001ms;
+  animation-timing-function: cubic-bezier(0.6, -0.28, 0.735, 0.045);
+
+}
+
+@keyframes blur {
+  0%,
+  10% {
+    filter: blur(10px);
+    -webkit-filter: blur(10px);
+    opacity: 0.2;
+  }
+  100% {
+    filter: blur(0px);
+    -webkit-filter: blur(0px);
+    opacity: 0.8;
+  }
+}
+
+
+@media(max-width:768px) {
+  .posts-container {
+    margin: 5vw 10vw 0 5vw;
+  }
+}
+
+/*----------Header-Logo-------------*/
+
+
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  place-items: center;
+  position: sticky;
+  top:0;
+  background-color: #181818;
+  z-index: 100;
+  margin: 0 30vw 0 30vw;
+
+  padding-top: 1.5rem;
+  margin-bottom: 10vh;
+  box-shadow: 0px 9px 15px  15px #181818;
+
+}
+
+.header h1 {
+  margin-top: 0vh;
+  margin-bottom: 0vh;
+  margin-left: 6px;
+  padding-left: 8px;
+
+  border-left: 1px solid rgba(255, 255, 255, 0.37);
+}
+
+
+
+@media(max-width: 768px) {
+  .header {
+    margin: 0 5vw 0 5vw;
+  }
+}
+
+
+.article {
+  transition: opacity 300ms ease-out;
+  border-bottom: 1px solid white;
+  border-color: rgba(245, 245, 245, 0.2);
+  scroll-snap-align: start;
+}
+
+/*-----------------Loading----------------------*/
+
+
+.loading {
+  text-align: center;
+  padding-top: 65%;
+}
+
+.loading span {
+  animation: loading-animation 1000ms;
+  animation-iteration-count: infinite;
+}
+
+
+.text-center {
+  text-align: center;
+  align-self: center;
+  padding: 0;
+}
+
+.loading span:nth-child(2) {
+  animation-delay: 200ms;
+}
+.loading span:nth-child(3) {
+  animation-delay: 300ms;
+}
+
+@keyframes loading-animation {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+
+/*-----------------Button----------------------*/
+
+button {
+  margin: 5vh;
+}
+
+.button-container {
+
+  display: grid;
+  place-items: center;
+}
+
+.button-center {
+  display: block;
+  background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+  background-color: #181818;
+  color: white;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.274);
+  height: 5vh;
+  width: 30vw;
+
+  margin-top: 1rem;
+
+  transition: 300ms ease-out;
+}
+
+.button-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button-center:active {
+  background-color: white;
+  color: black;
+}
+
+/*---------------------------------------*/
+
+
+#postLoad {
+  padding-top: 0;
+}
+
+
+#collapseIcon {
+  float: right;
+  font-size: 1.8rem;
+}
+
+.collapse input[type="checkbox"]{
+  position: absolute;
+  left: -99999px;
+}
+
+.collapse input[type="checkbox"] ~ .contentBox{
+  height: 0;
+  opacity: 0;
+  transform: scaleY(0);
+  transition: opacity 300ms ease-out;
+}
+
+.collapse input[type="checkbox"]:checked ~ .contentBox{
+  height: 100%;
+  margin-top: 3rem;
+  opacity: 1; 
+  transform: scaleY(1);
+  transition: opacity 300ms ease-out;
+}
+
+.collapse input[type="checkbox"]:checked + label span {
+  transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
+  filter: blur(1px);
+}
+
+.footer {
+  font-size: 0.5rem;
+  opacity: 0.5;
+  float: right;
+  padding-bottom: 3px;
+  position: static;
+  bottom: 1px;
+}
+
+
+

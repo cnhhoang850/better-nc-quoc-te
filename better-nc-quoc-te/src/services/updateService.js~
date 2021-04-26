@@ -1,0 +1,83 @@
+const JSSoup = require('jssoup').default
+const axios = require('axios')
+
+
+const updateService = {
+
+  getBlogContent : async (url) => {
+    const response = await axios.get(url)
+    if (response.error) {
+      return `Error fetching link's content: ${response.error}`
+    }
+
+    const soup = new JSSoup(response.data)
+    const title = soup.find('h1')
+    const content = soup.findAll('p')
+    const date = soup.find('time')
+
+
+    return {
+      title: filterDash(title.getText()),
+      link: url,
+      date: date.getText(),
+      content: content.map(val => {
+
+        return filterDash(val.getText())
+        
+      
+      }).slice(3, -4)
+    }
+  },
+
+  getBlogLinks : async (url, index) => {
+    const response = await axios.get(url)
+    if (response.error) {
+      return `Error fetching data: ${response.error}`
+    }
+
+    const soup = new JSSoup(response.data)
+    const blogLinks = await soup.findAll('loc')
+
+    //assuming getting 5 posts at a time
+    return blogLinks.map(val => val.getText()).reverse().slice(index - 5, index)
+  }
+}
+
+
+function filterDash(str) {
+  const words = str.split(' ')
+
+  let result = words.map(val => {
+    if (val.includes("&#8220;")) {
+     return val.replace("&#8220;", '"')
+    }
+
+    if (val.includes("&#8221;")) {
+      return val.replace("&#8221;", '"')
+    }
+
+    if (val.includes("&#8221;")) {
+      return val.replace("&#8221;", '"')
+    }
+
+    if (val.includes("&#8217;")) {
+      return val.replace("&#8217;", "'")
+    }
+
+    if (val.includes("&#8230;")) {
+      return val.replace("&#8230;", "...")
+    }
+
+    if (val.includes("&#8211;")) {
+      return val.replace("&#8211;", '-')
+    }
+
+    if (val.includes("&#8216;")) {
+      return val.replace("&#8216;", "'")
+    }
+    return val
+  })
+  return result.join(' ')
+}
+
+export default updateService
